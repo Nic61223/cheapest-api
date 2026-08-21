@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -9,6 +11,7 @@ import {
 import { Despacho } from './despacho.entity';
 import { ItemPedido } from './item-pedido.entity';
 import { NotaCredito } from './nota-credito.entity';
+import { Tienda } from '../../../identificacion-module/repositories/entities/Tienda.entity';
 
 export enum EstadoPedido {
   CREADO = 'creado',
@@ -31,6 +34,10 @@ export class Pedido {
 
   @Column('uuid')
   tiendaId: string;
+
+  @ManyToOne(() => Tienda, (tienda) => tienda.pedidos)
+  @JoinColumn({ name: 'tiendaId' })
+  tienda?: Tienda;
 
   @Column('timestamp')
   fechaHoraCreacion: Date;

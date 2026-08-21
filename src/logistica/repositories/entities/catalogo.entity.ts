@@ -2,12 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Producto } from './producto.entity';
+import { Tienda } from '../../../identificacion-module/repositories/entities/Tienda.entity';
 
 @Entity('catalogos')
 export class Catalogo {
@@ -16,6 +19,10 @@ export class Catalogo {
 
   @Column('uuid')
   tiendaId: string;
+
+  @ManyToOne(() => Tienda, (tienda) => tienda.catalogos)
+  @JoinColumn({ name: 'tiendaId' })
+  tienda?: Tienda;
 
   @Column('timestamp')
   vigenciaDesde: Date;

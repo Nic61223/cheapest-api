@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ItemVenta } from './item-venta.entity';
+import { Tienda } from '../../../identificacion-module/repositories/entities/Tienda.entity';
 
 @Entity('ventas')
 export class Venta {
@@ -15,6 +18,10 @@ export class Venta {
 
   @Column('uuid')
   tiendaId: string;
+
+  @ManyToOne(() => Tienda, (tienda) => tienda.ventas)
+  @JoinColumn({ name: 'tiendaId' })
+  tienda?: Tienda;
 
   @Column('timestamp')
   fechaHora: Date;
