@@ -1,12 +1,8 @@
 import { Module } from '@nestjs/common';
 
-// Database
 import { DatabaseModule } from '../datasources/database.module';
+import { IdentificacionModuleModule } from '../identificacion-module/identificacion-module.module';
 
-// Clients
-import { TiendaClientMock } from './clients';
-
-// Repositories
 import {
   CatalogoProductoRepository,
   CatalogoRepository,
@@ -18,7 +14,6 @@ import {
   PromocionRepository,
 } from './repositories';
 
-// Services
 import {
   CatalogoProductoService,
   CatalogoService,
@@ -31,7 +26,6 @@ import {
   TenderoService,
 } from './services';
 
-// Controllers
 import {
   CatalogoController,
   CatalogoProductoController,
@@ -47,7 +41,7 @@ import {
 import { repositoryProviders } from './repositories/repository.providers';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, IdentificacionModuleModule],
   controllers: [
     CatalogoController,
     ProductoController,
@@ -60,9 +54,7 @@ import { repositoryProviders } from './repositories/repository.providers';
     TenderoController,
   ],
   providers: [
-    // Repository Providers
     ...repositoryProviders,
-    // Repositories
     CatalogoRepository,
     ProductoRepository,
     PromocionRepository,
@@ -71,7 +63,6 @@ import { repositoryProviders } from './repositories/repository.providers';
     NotaCreditoRepository,
     DisponibilidadZonaRepository,
     CatalogoProductoRepository,
-    // Services
     CatalogoService,
     ProductoService,
     PromocionService,
@@ -81,8 +72,6 @@ import { repositoryProviders } from './repositories/repository.providers';
     DisponibilidadZonaService,
     CatalogoProductoService,
     TenderoService,
-    // Mock Clients
-    TiendaClientMock,
   ],
   exports: [
     CatalogoService,
