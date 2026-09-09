@@ -3,7 +3,7 @@ import { IsString, MaxLength } from 'class-validator';
 export class CreateTiendaDto {
   @IsString()
   @MaxLength(255)
-  codigoInterno!: string;
+  codigoInterno: string;
 
   @IsString()
   @MaxLength(255)
